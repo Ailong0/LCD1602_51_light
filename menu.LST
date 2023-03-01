@@ -1,0 +1,203 @@
+C51 COMPILER V9.60.7.0   MENU                                                              03/01/2023 14:58:03 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MENU
+OBJECT MODULE PLACED IN menu.OBJ
+COMPILER INVOKED BY: E:\software_setup\Keil_v5\setup\C51\BIN\C51.EXE menu.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND 
+                    -TABS(2)
+
+line level    source
+
+   1          #include "LCD1602.h"
+   2          #include "menu.h"
+   3          #include "stdio.h"
+   4          static void (*current_operation_index)(void);
+   5          typedef struct
+   6          {
+   7              unsigned char current;//当前状态索引号
+   8              unsigned char next; //向下一个
+   9              unsigned char last;//向上一个
+  10              unsigned char enter; //确定
+  11              unsigned char back; //返回
+  12              void (*current_operation)(void); //当前状态应该执行的操作
+  13          } Menu_table;
+  14          
+  15          Menu_table  table[5]=
+  16          {
+  17              {0,1,1,2,0,(*fun0)},//一级界面  
+  18              {1,0,0,3,1,(*fun1)},
+  19              
+  20              {2,2,2,2,0,(*fun2)},
+  21              {3,4,4,3,4,(*fun3)},
+  22              {4,3,3,3,0,(*fun4)},
+  23          
+  24          };
+  25          void delay(unsigned int i)
+  26          {
+  27   1        while(i--); 
+  28   1      }
+  29          unsigned char  func_index = 0;//主程序此时所在界面的索引值
+  30          void  Menu_key_set(void)
+  31          {
+  32   1          if(next_key == 0)
+  33   1          {   
+  34   2            while(next_key==0);
+  35   2            delay(10000);
+  36   2            func_index=table[func_index].next;//按键next按下后的索引号
+  37   2          }
+  38   1         if(last_key == 0)
+  39   1          {
+  40   2            while(last_key==0);
+  41   2            delay(10000);
+  42   2            func_index=table[func_index].last;
+  43   2          }
+  44   1          if(enter_key == 0)
+  45   1          {
+  46   2            LCD_clear();
+  47   2            while(enter_key==0);
+  48   2            func_index=table[func_index].enter;
+  49   2      
+  50   2          }
+  51   1          if(back_key == 0)
+  52   1          {
+  53   2            LCD_clear();
+  54   2            while(back_key==0);
+C51 COMPILER V9.60.7.0   MENU                                                              03/01/2023 14:58:03 PAGE 2   
+
+  55   2            func_index=table[func_index].back;
+  56   2      
+  57   2          }
+  58   1        current_operation_index=table[func_index].current_operation;//执行当前索引号所对应的功能函数。
+  59   1        (*current_operation_index)();//执行当前操作函数
+  60   1      }
+  61          void fun0(void)
+  62          {
+  63   1        LCD_disp_string(1,0,"->  set time");
+  64   1        LCD_disp_string(2,0,"    set power");
+  65   1      }
+  66          void fun1()
+  67          {
+  68   1        LCD_disp_string(1,0,"    set time");
+  69   1        LCD_disp_string(2,0,"->  set power");
+  70   1      }
+  71          void fun2()
+  72          {
+  73   1        unsigned char time_str[10]="";
+  74   1          while(1){
+  75   2        sprintf((char*)time_str,"time:%2ds",duration/1000);
+  76   2      
+  77   2        if (next_key==0)
+  78   2        {while(next_key==0);
+  79   3          duration=duration+1000;
+  80   3        }
+  81   2        if (last_key==0)
+  82   2        {
+  83   3          while(last_key==0);
+  84   3          duration=duration-1000;
+  85   3          if (duration==0)
+  86   3          {
+  87   4            duration==0;
+*** WARNING C275 IN LINE 87 OF menu.c: expression with possibly no effect
+  88   4          } 
+  89   3        }
+  90   2        if(back_key==0)
+  91   2        {
+  92   3          func_index=0;
+  93   3          break;
+  94   3        }
+  95   2        LCD_disp_string(1,0,time_str);
+  96   2      }
+  97   1      }
+  98          void fun3()
+  99          {
+ 100   1        LCD_disp_string(1,0,"-> min:");
+ 101   1        LCD_disp_string(2,0,"   max:");
+ 102   1        while(1)
+ 103   1        {
+ 104   2          if (next_key==0)
+ 105   2          {
+ 106   3            while(next_key==0);
+ 107   3            min_duty=min_duty+5;
+ 108   3          }
+ 109   2          if (last_key==0)
+ 110   2          {
+ 111   3            while(last_key==0);
+ 112   3            min_duty=min_duty-5;
+ 113   3            if (min_duty==0)
+ 114   3            {
+ 115   4              min_duty==0;
+C51 COMPILER V9.60.7.0   MENU                                                              03/01/2023 14:58:03 PAGE 3   
+
+*** WARNING C275 IN LINE 115 OF menu.c: expression with possibly no effect
+ 116   4            } 
+ 117   3            if(min_duty>=max_duty)
+ 118   3            {
+ 119   4              min_duty=max_duty;
+ 120   4            }
+ 121   3          }
+ 122   2          
+ 123   2          LCD_disp_number(1,7,min_duty,3);
+ 124   2          LCD_disp_number(2,7,max_duty,3);
+ 125   2          if(back_key==0) 
+ 126   2          {
+ 127   3            while(back_key==0);
+ 128   3            func_index=4;
+ 129   3            break;
+ 130   3          }
+ 131   2        }
+ 132   1      }
+ 133          void fun4()
+ 134          {
+ 135   1        LCD_disp_string(1,0,"   min:");
+ 136   1        LCD_disp_string(2,0,"-> max:");
+ 137   1        while(1)
+ 138   1        {
+ 139   2          if (next_key==0)
+ 140   2          {
+ 141   3            while(next_key==0);
+ 142   3            max_duty=max_duty+5;
+ 143   3          }
+ 144   2          if (last_key==0)
+ 145   2          {
+ 146   3            while(last_key==0);
+ 147   3            max_duty=max_duty-5;
+ 148   3            if (max_duty==100)
+ 149   3            {
+ 150   4              max_duty==100;
+*** WARNING C275 IN LINE 150 OF menu.c: expression with possibly no effect
+ 151   4            } 
+ 152   3            if(max_duty<=min_duty)
+ 153   3            {
+ 154   4              max_duty=min_duty;
+ 155   4            }
+ 156   3          }
+ 157   2          
+ 158   2          LCD_disp_number(1,7,min_duty,3);
+ 159   2          LCD_disp_number(2,7,max_duty,3);
+ 160   2          if(back_key==0)
+ 161   2          {   
+ 162   3            while(back_key==0);
+ 163   3            func_index=0;
+ 164   3            break;
+ 165   3          }
+ 166   2        }
+ 167   1      }
+ 168          
+ 169          
+ 170          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    523    ----
+   CONSTANT SIZE    =    106    ----
+C51 COMPILER V9.60.7.0   MENU                                                              03/01/2023 14:58:03 PAGE 4   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     44      10
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

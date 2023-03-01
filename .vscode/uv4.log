@@ -1,0 +1,8 @@
+Build target 'Target 1'
+compiling main.c...
+compiling menu.c...
+menu.c(71): warning C260: '=': pointer truncation
+menu.c(82): warning C275: expression with possibly no effect
+menu.c(85): error C214: illegal pointer conversion
+Target not created.
+Build Time Elapsed:  00:00:00

@@ -1,0 +1,120 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              03/01/2023 14:45:54 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: E:\software_setup\Keil_v5\setup\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND 
+                    -TABS(2)
+
+line level    source
+
+   1          
+   2          
+   3          #include "regX52.h"      //此文件中定义了单片机的一些特殊功能寄存器
+   4          #include <intrins.h>    //因为要用到左右移函数，所以加入这个头文件
+   5          #include "LCD1602.h"
+   6          #include "menu.h"
+   7          typedef unsigned int u16;   //对数据类型进行声明定义
+   8          typedef unsigned char u8;
+   9          
+  10          #define led P2_1     // 低电平点亮
+  11          #define microphone P1_0    //默认高电平 低电平有效
+  12          #define hcsr501 P1_1  //默认高电平 低电平有效
+  13          u16 min_duty =  10;
+  14          u16 max_duty = 100;
+  15          u16 current_duty = 0;
+  16          u8 light_flag =0;
+  17          u16 duration = 10000;
+  18          
+  19          
+  20          void Timer0Init()
+  21          {
+  22   1        TMOD|=0X01;//选择为定时器0模式，工作方式1，仅用TR0打开启动。
+  23   1      
+  24   1        TH0=0Xff; //给定时器赋初值，定时1ms
+  25   1        TL0=0X18; 
+  26   1        ET0=1;//打开定时器0中断允许
+  27   1        EA=1;//打开总中断
+  28   1        TR0=1;//打开定时器      
+  29   1      }
+  30          void Timer1Init()
+  31          {
+  32   1        TMOD|=0X10;//选择为定时器1模式，工作方式1，仅用TR1打开启动。
+  33   1      
+  34   1        TH1=0XFC; //给定时器赋初值，定时1ms
+  35   1        TL1=0X18; 
+  36   1        ET1=1;//打开定时器1中断允许
+  37   1        EA=1;//打开总中断
+  38   1        TR1=1;//打开定时器      
+  39   1      }
+  40          
+  41          void main()
+  42          {
+  43   1        Timer0Init();
+  44   1        Timer1Init();
+  45   1        LCD_init();
+  46   1        current_duty=min_duty;
+  47   1        P2=0XFF;
+  48   1        P1_1=1;
+  49   1        while(1)
+  50   1        {
+  51   2          if (hcsr501==0||microphone==0)
+  52   2          {
+  53   3            light_flag=1;
+  54   3            current_duty=max_duty;
+C51 COMPILER V9.60.7.0   MAIN                                                              03/01/2023 14:45:54 PAGE 2   
+
+  55   3          }
+  56   2          Menu_key_set();
+  57   2      
+  58   2        }
+  59   1        
+  60   1      }
+  61          void Timer0() interrupt 1
+  62          {
+  63   1        static u16 i;
+  64   1        TH0=0Xff; //给定时器赋初值，定时1ms
+  65   1        TL0=0X18;
+  66   1        i++;
+  67   1        if(i<current_duty)
+  68   1        {
+  69   2          led=0;
+  70   2        } 
+  71   1        else{
+  72   2          led=1;
+  73   2        }
+  74   1        if(i==100) i=0;
+  75   1      }
+  76          void Timer1() interrupt 3
+  77          {
+  78   1        static u16 i;
+  79   1        TH1=0XFC; //给定时器赋初值，定时1ms
+  80   1        TL1=0X18;
+  81   1        if (light_flag)
+  82   1        {
+  83   2          i++;
+  84   2          if (i%(duration/(max_duty-min_duty))==0)
+  85   2          {
+  86   3            current_duty=current_duty-1;
+  87   3          }
+  88   2          if(i==duration)
+  89   2          {
+  90   3            i=0;
+  91   3            light_flag=0;
+  92   3          } 
+  93   2        }
+  94   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    238    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     13    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

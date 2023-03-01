@@ -1,0 +1,297 @@
+C51 COMPILER V9.60.7.0   OLED_IIC                                                          03/01/2023 13:05:16 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE OLED_IIC
+OBJECT MODULE PLACED IN oled_iic.OBJ
+COMPILER INVOKED BY: E:\software_setup\Keil_v5\setup\C51\BIN\C51.EXE oled_iic.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXT
+                    -END TABS(2)
+
+line level    source
+
+   1          #include "oled_iic.h"
+   2          unsigned char F16x16[] =
+   3          {
+   4          0X00
+   5          };
+   6          
+   7          /************************************6*8???************************************/
+   8          const unsigned char F6x8[][6] =
+   9          {
+  10          0x00, 0x00, 0x00, 0x00, 0x00, 0x00,// sp
+  11          0x00, 0x00, 0x00, 0x2f, 0x00, 0x00,// !
+  12          0x00, 0x00, 0x07, 0x00, 0x07, 0x00,// "
+  13          0x00, 0x14, 0x7f, 0x14, 0x7f, 0x14,// #
+  14          0x00, 0x24, 0x2a, 0x7f, 0x2a, 0x12,// $
+  15          0x00, 0x62, 0x64, 0x08, 0x13, 0x23,// %
+  16          0x00, 0x36, 0x49, 0x55, 0x22, 0x50,// &
+  17          0x00, 0x00, 0x05, 0x03, 0x00, 0x00,// '
+  18          0x00, 0x00, 0x1c, 0x22, 0x41, 0x00,// (
+  19          0x00, 0x00, 0x41, 0x22, 0x1c, 0x00,// )
+  20          0x00, 0x14, 0x08, 0x3E, 0x08, 0x14,// *
+  21          0x00, 0x08, 0x08, 0x3E, 0x08, 0x08,// +
+  22          0x00, 0x00, 0x00, 0xA0, 0x60, 0x00,// ,
+  23          0x00, 0x08, 0x08, 0x08, 0x08, 0x08,// -
+  24          0x00, 0x00, 0x60, 0x60, 0x00, 0x00,// .
+  25          0x00, 0x20, 0x10, 0x08, 0x04, 0x02,// /
+  26          0x00, 0x3E, 0x51, 0x49, 0x45, 0x3E,// 0
+  27          0x00, 0x00, 0x42, 0x7F, 0x40, 0x00,// 1
+  28          0x00, 0x42, 0x61, 0x51, 0x49, 0x46,// 2
+  29          0x00, 0x21, 0x41, 0x45, 0x4B, 0x31,// 3
+  30          0x00, 0x18, 0x14, 0x12, 0x7F, 0x10,// 4
+  31          0x00, 0x27, 0x45, 0x45, 0x45, 0x39,// 5
+  32          0x00, 0x3C, 0x4A, 0x49, 0x49, 0x30,// 6
+  33          0x00, 0x01, 0x71, 0x09, 0x05, 0x03,// 7
+  34          0x00, 0x36, 0x49, 0x49, 0x49, 0x36,// 8
+  35          0x00, 0x06, 0x49, 0x49, 0x29, 0x1E,// 9
+  36          0x00, 0x00, 0x36, 0x36, 0x00, 0x00,// :
+  37          0x00, 0x00, 0x56, 0x36, 0x00, 0x00,// ;
+  38          0x00, 0x08, 0x14, 0x22, 0x41, 0x00,// <
+  39          0x00, 0x14, 0x14, 0x14, 0x14, 0x14,// =
+  40          0x00, 0x00, 0x41, 0x22, 0x14, 0x08,// >
+  41          0x00, 0x02, 0x01, 0x51, 0x09, 0x06,// ?
+  42          0x00, 0x32, 0x49, 0x59, 0x51, 0x3E,// @
+  43          0x00, 0x7C, 0x12, 0x11, 0x12, 0x7C,// A
+  44          0x00, 0x7F, 0x49, 0x49, 0x49, 0x36,// B
+  45          0x00, 0x3E, 0x41, 0x41, 0x41, 0x22,// C
+  46          0x00, 0x7F, 0x41, 0x41, 0x22, 0x1C,// D
+  47          0x00, 0x7F, 0x49, 0x49, 0x49, 0x41,// E
+  48          0x00, 0x7F, 0x09, 0x09, 0x09, 0x01,// F
+  49          0x00, 0x3E, 0x41, 0x49, 0x49, 0x7A,// G
+  50          0x00, 0x7F, 0x08, 0x08, 0x08, 0x7F,// H
+  51          0x00, 0x00, 0x41, 0x7F, 0x41, 0x00,// I
+  52          0x00, 0x20, 0x40, 0x41, 0x3F, 0x01,// J
+  53          0x00, 0x7F, 0x08, 0x14, 0x22, 0x41,// K
+  54          0x00, 0x7F, 0x40, 0x40, 0x40, 0x40,// L
+C51 COMPILER V9.60.7.0   OLED_IIC                                                          03/01/2023 13:05:16 PAGE 2   
+
+  55          0x00, 0x7F, 0x02, 0x0C, 0x02, 0x7F,// M
+  56          0x00, 0x7F, 0x04, 0x08, 0x10, 0x7F,// N
+  57          0x00, 0x3E, 0x41, 0x41, 0x41, 0x3E,// O
+  58          0x00, 0x7F, 0x09, 0x09, 0x09, 0x06,// P
+  59          0x00, 0x3E, 0x41, 0x51, 0x21, 0x5E,// Q
+  60          0x00, 0x7F, 0x09, 0x19, 0x29, 0x46,// R
+  61          0x00, 0x46, 0x49, 0x49, 0x49, 0x31,// S
+  62          0x00, 0x01, 0x01, 0x7F, 0x01, 0x01,// T
+  63          0x00, 0x3F, 0x40, 0x40, 0x40, 0x3F,// U
+  64          0x00, 0x1F, 0x20, 0x40, 0x20, 0x1F,// V
+  65          0x00, 0x3F, 0x40, 0x38, 0x40, 0x3F,// W
+  66          0x00, 0x63, 0x14, 0x08, 0x14, 0x63,// X
+  67          0x00, 0x07, 0x08, 0x70, 0x08, 0x07,// Y
+  68          0x00, 0x61, 0x51, 0x49, 0x45, 0x43,// Z
+  69          0x00, 0x00, 0x7F, 0x41, 0x41, 0x00,// [
+  70          0x00, 0x55, 0x2A, 0x55, 0x2A, 0x55,// 55
+  71          0x00, 0x00, 0x41, 0x41, 0x7F, 0x00,// ]
+  72          0x00, 0x04, 0x02, 0x01, 0x02, 0x04,// ^
+  73          0x00, 0x40, 0x40, 0x40, 0x40, 0x40,// _
+  74          0x00, 0x00, 0x01, 0x02, 0x04, 0x00,// '
+  75          0x00, 0x20, 0x54, 0x54, 0x54, 0x78,// a
+  76          0x00, 0x7F, 0x48, 0x44, 0x44, 0x38,// b
+  77          0x00, 0x38, 0x44, 0x44, 0x44, 0x20,// c
+  78          0x00, 0x38, 0x44, 0x44, 0x48, 0x7F,// d
+  79          0x00, 0x38, 0x54, 0x54, 0x54, 0x18,// e
+  80          0x00, 0x08, 0x7E, 0x09, 0x01, 0x02,// f
+  81          0x00, 0x18, 0xA4, 0xA4, 0xA4, 0x7C,// g
+  82          0x00, 0x7F, 0x08, 0x04, 0x04, 0x78,// h
+  83          0x00, 0x00, 0x44, 0x7D, 0x40, 0x00,// i
+  84          0x00, 0x40, 0x80, 0x84, 0x7D, 0x00,// j
+  85          0x00, 0x7F, 0x10, 0x28, 0x44, 0x00,// k
+  86          0x00, 0x00, 0x41, 0x7F, 0x40, 0x00,// l
+  87          0x00, 0x7C, 0x04, 0x18, 0x04, 0x78,// m
+  88          0x00, 0x7C, 0x08, 0x04, 0x04, 0x78,// n
+  89          0x00, 0x38, 0x44, 0x44, 0x44, 0x38,// o
+  90          0x00, 0xFC, 0x24, 0x24, 0x24, 0x18,// p
+  91          0x00, 0x18, 0x24, 0x24, 0x18, 0xFC,// q
+  92          0x00, 0x7C, 0x08, 0x04, 0x04, 0x08,// r
+  93          0x00, 0x48, 0x54, 0x54, 0x54, 0x20,// s
+  94          0x00, 0x04, 0x3F, 0x44, 0x40, 0x20,// t
+  95          0x00, 0x3C, 0x40, 0x40, 0x20, 0x7C,// u
+  96          0x00, 0x1C, 0x20, 0x40, 0x20, 0x1C,// v
+  97          0x00, 0x3C, 0x40, 0x30, 0x40, 0x3C,// w
+  98          0x00, 0x44, 0x28, 0x10, 0x28, 0x44,// x
+  99          0x00, 0x1C, 0xA0, 0xA0, 0xA0, 0x7C,// y
+ 100          0x00, 0x44, 0x64, 0x54, 0x4C, 0x44,// z
+ 101          0x14, 0x14, 0x14, 0x14, 0x14, 0x14,// horiz lines
+ 102          };
+ 103          /****************************************8*16???************************************/
+ 104          const unsigned char F8X16[]=
+ 105          {
+ 106          
+ 107          0X00
+ 108          };
+ 109          /*********************OLED??????????************************************/
+ 110          void delay(unsigned int z)
+ 111          {
+ 112   1        unsigned int x,y;
+ 113   1        for(x=z;x>0;x--)
+ 114   1          for(y=110;y>0;y--);
+ 115   1      }
+ 116          
+C51 COMPILER V9.60.7.0   OLED_IIC                                                          03/01/2023 13:05:16 PAGE 3   
+
+ 117          /**********************************************
+ 118          //IIC Start
+ 119          **********************************************/
+ 120          void IIC_Start(void)
+ 121          {
+ 122   1      
+ 123   1         OLED_SCLK_Set();
+ 124   1         OLED_SDA_Set();
+ 125   1         OLED_SDA_Clr();
+ 126   1         OLED_SCLK_Clr();
+ 127   1      }
+ 128          
+ 129          /**********************************************
+ 130          //IIC Stop
+ 131          **********************************************/
+ 132          void IIC_Stop(void)
+ 133          {
+ 134   1         OLED_SDA_Clr();
+ 135   1         OLED_SCLK_Clr();
+ 136   1         OLED_SCLK_Set();
+ 137   1         OLED_SDA_Set();
+ 138   1      }
+ 139          
+ 140          /**********************************************
+ 141          // 通过I2C总线写一个字节
+ 142          **********************************************/
+ 143          void Write_IIC_Byte(unsigned char IIC_Byte)
+ 144          {
+ 145   1        unsigned char i;
+ 146   1        for(i=0;i<8;i++)
+ 147   1        {
+ 148   2          if(IIC_Byte & 0x80)
+ 149   2            OLED_SDA_Set();
+ 150   2          else
+ 151   2         OLED_SDA_Clr();
+ 152   2         OLED_SCLK_Set();
+ 153   2         OLED_SCLK_Clr();
+ 154   2          IIC_Byte<<=1;
+ 155   2        }
+ 156   1         OLED_SDA_Set();
+ 157   1         OLED_SCLK_Set();
+ 158   1         OLED_SCLK_Clr();
+ 159   1      }
+ 160          
+ 161          /*********************OLED写数据************************************/
+ 162          void OLED_WrDat(unsigned char IIC_Data)
+ 163          {
+ 164   1        IIC_Start();
+ 165   1        Write_IIC_Byte(0x78);
+ 166   1        Write_IIC_Byte(0x40);     //write data
+ 167   1        Write_IIC_Byte(IIC_Data);
+ 168   1        IIC_Stop();
+ 169   1      }
+ 170          /*********************OLED写命令************************************/
+ 171          void OLED_WrCmd(unsigned char IIC_Command)
+ 172          {
+ 173   1        IIC_Start();
+ 174   1        Write_IIC_Byte(0x78);            //Slave address,SA0=0
+ 175   1        Write_IIC_Byte(0x00);     //write command
+ 176   1        Write_IIC_Byte(IIC_Command);
+ 177   1        IIC_Stop();
+ 178   1      }
+C51 COMPILER V9.60.7.0   OLED_IIC                                                          03/01/2023 13:05:16 PAGE 4   
+
+ 179          /*********************OLED 设置坐标************************************/
+ 180          void OLED_Set_Pos(unsigned char x, unsigned char y)
+ 181          {
+ 182   1        OLED_WrCmd(0xb0+y);
+ 183   1        OLED_WrCmd(((x&0xf0)>>4)|0x10);
+ 184   1        OLED_WrCmd((x&0x0f)|0x00);
+ 185   1      }
+ 186          /*********************OLED全屏************************************/
+ 187          void OLED_Fill(unsigned char bmp_dat)
+ 188          {
+ 189   1        unsigned char y,x;
+ 190   1        for(y=0;y<8;y++)
+ 191   1        {
+ 192   2          OLED_WrCmd(0xb0+y);
+ 193   2          OLED_WrCmd(0x00);
+ 194   2          OLED_WrCmd(0x10);
+ 195   2          for(x=0;x<X_WIDTH;x++)
+ 196   2          OLED_WrDat(bmp_dat);
+ 197   2        }
+ 198   1      }
+ 199          ///*********************OLED复位************************************/
+ 200          void OLED_CLS(void)
+ 201          {
+ 202   1        unsigned char y,x;
+ 203   1        for(y=0;y<8;y++)
+ 204   1        {
+ 205   2          OLED_WrCmd(0xb0+y);
+ 206   2          OLED_WrCmd(0x01);
+ 207   2          OLED_WrCmd(0x10);
+ 208   2          for(x=0;x<X_WIDTH;x++)
+ 209   2          OLED_WrDat(0);
+ 210   2        }
+ 211   1      }
+ 212          
+ 213          /*********************OLED初始化************************************/
+ 214          void OLED_Init(void)
+ 215          {
+ 216   1      
+ 217   1        delay(500);//初始化之前的延时很重要！
+ 218   1        OLED_WrCmd(0xae);//--turn off oled panel
+ 219   1        OLED_WrCmd(0x00);//---set low column address
+ 220   1        OLED_WrCmd(0x10);//---set high column address
+ 221   1        OLED_WrCmd(0x40);//--set start line address  Set Mapping RAM Display Start Line (0x00~0x3F)
+ 222   1        OLED_WrCmd(0x81);//--set contrast control register
+ 223   1        OLED_WrCmd(Brightness); // Set SEG Output Current Brightness
+ 224   1        OLED_WrCmd(0xa1);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
+ 225   1        OLED_WrCmd(0xc8);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
+ 226   1        OLED_WrCmd(0xa6);//--set normal display
+ 227   1        OLED_WrCmd(0xa8);//--set multiplex ratio(1 to 64)
+ 228   1        OLED_WrCmd(0x3f);//--1/64 duty
+ 229   1        OLED_WrCmd(0xd3);//-set display offset  Shift Mapping RAM Counter (0x00~0x3F)
+ 230   1        OLED_WrCmd(0x00);//-not offset
+ 231   1        OLED_WrCmd(0xd5);//--set display clock divide ratio/oscillator frequency
+ 232   1        OLED_WrCmd(0x80);//--set divide ratio, Set Clock as 100 Frames/Sec
+ 233   1        OLED_WrCmd(0xd9);//--set pre-charge period
+ 234   1        OLED_WrCmd(0xf1);//Set Pre-Charge as 15 Clocks & Discharge as 1 Clock
+ 235   1        OLED_WrCmd(0xda);//--set com pins hardware configuration
+ 236   1        OLED_WrCmd(0x12);
+ 237   1        OLED_WrCmd(0xdb);//--set vcomh
+ 238   1        OLED_WrCmd(0x40);//Set VCOM Deselect Level
+ 239   1        OLED_WrCmd(0x20);//-Set Page Addressing Mode (0x00/0x01/0x02)
+ 240   1        OLED_WrCmd(0x02);//
+C51 COMPILER V9.60.7.0   OLED_IIC                                                          03/01/2023 13:05:16 PAGE 5   
+
+ 241   1        OLED_WrCmd(0x8d);//set Charge Pump enable/disable
+ 242   1        OLED_WrCmd(0x14);//set(0x10) disable
+ 243   1        OLED_WrCmd(0xa4);// Disable Entire Display On (0xa4/0xa5)
+ 244   1        OLED_WrCmd(0xa6);// Disable Inverse Display On (0xa6/a7)
+ 245   1        OLED_WrCmd(0xaf);//turn on oled panel
+ 246   1        OLED_Fill(0x00); //初始清屏
+ 247   1        OLED_Set_Pos(0,0);
+ 248   1      }
+ 249          //void OLED_P6x8Str(unsigned char x, y,unsigned char ch[])
+ 250          void OLED_ShowChar(u8 x,u8 y,u8 chr)
+ 251          {
+ 252   1        unsigned char c=0,i=0;
+ 253   1        c=chr-' ';//???????
+ 254   1      
+ 255   1          if(x>120){x=0;y++;}
+ 256   1          OLED_Set_Pos(x,y);
+ 257   1          for(i=0;i<6;i++)
+ 258   1          OLED_WrDat(F6x8[c][i]);
+ 259   1          x+=6;
+ 260   1      }
+ 261          /*******************功能描述：显示6*8一组标准ASCII字符串   显示的坐标（x,y），y为页范围0～7****************
+             -/
+ 262          void OLED_P6x8Str(unsigned char x,unsigned char y,unsigned char ch[])
+ 263          {
+ 264   1        unsigned char c=0,i=0,j=0;
+ 265   1        while (ch[j]!='\0')
+ 266   1        {
+ 267   2          c =ch[j]-32;
+ 268   2          if(x>120){x=0;y++;}
+ 269   2          OLED_Set_Pos(x,y);
+ 270   2          for(i=0;i<6;i++)
+ 271   2          OLED_WrDat(F6x8[c][i]);
+ 272   2          x+=6;
+ 273   2          j++;
+ 274   2        }
+ 275   1      }
+*** ERROR C249 IN LINE 275 OF oled_iic.c: 'DATA': SEGMENT TOO LARGE
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)
